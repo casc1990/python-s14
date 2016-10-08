@@ -1,0 +1,7 @@
+iphone	5388
+bike	500
+watch	1389
+mac pro	12000
+ipad	800
+python book	58
+shoes	230
