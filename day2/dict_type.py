@@ -27,9 +27,12 @@ dict_list2 = dict_list.copy()   #浅copy （只copy一层，嵌套的数据修�
 dict_list[3][1] = 'xiaoming'
 print (dict_list2,dict_list)
 lst = ['a','b','c']
-dict_list3 = dict.fromkeys(lst,'hello')  #用于创建一个新字典，以序列seq中元素做字典的键，value为字典所有键对应的初始值。
+dict_list3 = dict.fromkeys(lst,'hello')  #用于初始化一个新字典，以序列seq中元素做字典的键，value为字典所有键对应的初始值。
 dict_list4 = dict.fromkeys(range(3),'hello') #输入为：{0: 'hello', 1: 'hello', 2: 'hello'}
 dict_list5 = dict.fromkeys(range(3)) #输出为：{0: None, 1: None, 2: None}
+dict_lst = dict.fromkeys([6,7,8],[1,{'name':'hehe'},444])  #value也可以为序列
+print (dict_lst) #输入为下：
+#{8: [1, {'name': 'hehe'}, 444], 6: [1, {'name': 'hehe'}, 444], 7: [1, {'name': 'hehe'}, 444]}
 print (info.items())    #以元祖的形式返回字典的所有键、值数组,输出如下：
 #dict_items([('stu001', '007'), ('stu005', 'old-boy'), ('stu004', 'alex'), ('stu003', 'wangwu'), ('stu006', 'jack')])
 print (info.keys())   #返回所有的键
@@ -59,6 +62,6 @@ print (china['陕西']['商洛'][0])  #字典的多级嵌套
 for i in info:   #字典循环姿势一（推荐使用）
     print (i,info[i])
 
-for i,j in info.items():
-    print (i,j)   #字典循环姿势一(效率低，不建议使用)
+for k,v in info.items():
+    print (k,v)   #字典循环姿势一(效率低，不建议使用)
 
