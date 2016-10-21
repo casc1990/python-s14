@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 #Author:pengbo
 import sys,os
-#old = sys.argv[1]
+#old = sys.argv[1]   #第一个位置参数
 #new = sys.argv[2]
 print (len(sys.argv))   #获取命令行参数个数
 print (sys.argv[0])    #打印脚本名
