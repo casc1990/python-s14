@@ -10,7 +10,7 @@
 #encoding() --编码     decoding()  --解码
 #因为unicode是万国码，它可以编码utf-8和gbk、gb2312等等，所有不同编码的转换都要经过unicode重新编码
 import sys
-str = '你好，世界！'
+str = '你好，世界！'  #开头定义的字符编码只是对文件有效，对定义的变量无效。（str类型取决于变量定义本身，所以继承了默认的ascii）
 print (sys.getdefaultencoding())   #查看默认的系统编码，（python2.7是ascii，python3是unicode
 #unicode到gbk转换
 str_to_gbk = str.encode('gbk')  #因为python3中默认就是unicode，所有可以直接将unicode编码为gbk或者gb2132
