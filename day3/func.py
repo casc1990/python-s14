@@ -14,7 +14,7 @@ def func2():
     '''Function description document '''
     print('in the func2')
 func1()     #执行函数
-x = func1()
+x = func1()    #将函数结果赋值给变量（返回值结果赋值给变量）
 y = func2()
 
 print ('func1 return is %s!' %x)    #返回定义的返回值
