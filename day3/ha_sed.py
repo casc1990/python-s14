@@ -34,12 +34,40 @@ print (type(s3),a)
 print (type(s1),s1)
 print (type(s2),s2)
 def add(dict_info):
+    dict_info = json.loads(dict_info)
     backend = dict_info['backend']
     server = dict_info['record']['server']
     weight = dict_info['record']['weight']
     maxconn = dict_info['record']['maxconn']
     add_backend_format = 'backend '+ dict_info['backend']
     add_context_format = 'server %s %s weight %d maxconn %d' %(server,server,weight,maxconn)
+    result_list = fetch(dict_info['backend'])
+    backend_and_server_list = []
+    with open('haproxy.conf','r',encoding='utf-8') as old,\
+         open('ha.conf','w',encoding='utf-8') as new:
+        if result_list:
+            if add_context_format in result_list:
+                    print ('该域名的server记录已经存在了！')
+                    sys.exit()
+            else:
+                backend_and_server_list.append(backend)
+                backend_and_server_list.append(add_context_format)
+        else:
+            backend_and_server_list.append(backend)
+            backend_and_server_list.append(add_context_format)
+        for line in old:
+            new.write(line)
+        for line1 in backend_and_server_list:
+            new.write(line1)
+    os.rename('haproxy.conf','haproxy.conf.bak')
+    os.rename('ha.conf','haproxy.conf')
+
+#add(s)
+
+
+
+
+
 
 
 
@@ -63,5 +91,7 @@ while True:
             else:
                 print ('你输入的 %s 域名不存在' % choice2)
                 break
+    if choice == '2':
+        choice3 = input('请输入要添加的内容：')
+        add(choice3)
 '''
-
