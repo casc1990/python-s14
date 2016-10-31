@@ -24,12 +24,13 @@ def fetch(backend):               #定义查询的函数
             if flag and line.strip():
                result.append(line)   #将找到的记录追加到列表
         return result   #返回列表
-s = '{"bakend": "www.oldboy.org","record":{"server": "100.1.7.9","weight": 20,"maxconn": 30}}'
+s = '{"backend": "abc.mage.edu","record":{"server": "100.1.7.9","weight": 20,"maxconn": 30}}'
 a = "{'key':'value'}"
 print (type(s),s)
 s1 = json.loads(s)  #json.loads 可以将字典或者列表形式的字符串转换成字典、列表(注意：字符串里的元素使用双引号"")
 s2 = eval(s)     #eval 也可以将字典或者列表形式的字符串转换成字典、列表（字符串里的元素使用单双引号都可以）
 s3 = eval(a)
+print (s1['backend'])
 print (type(s3),a)
 print (type(s1),s1)
 print (type(s2),s2)
@@ -58,11 +59,11 @@ def add(dict_info):
         for line in old:
             new.write(line)
         for line1 in backend_and_server_list:
-            new.write(line1)
+            new.write('\n'+ line1)
     os.rename('haproxy.conf','haproxy.conf.bak')
     os.rename('ha.conf','haproxy.conf')
 
-#add(s)
+add(s)
 
 
 
