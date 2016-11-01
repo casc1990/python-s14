@@ -24,7 +24,7 @@ def fetch(backend):               #定义查询的函数
             if flag and line.strip():
                result.append(line)   #将找到的记录追加到列表
         return result   #返回列表
-s = '{"backend": "abc.mage.edu","record":{"server": "100.1.7.9","weight": 20,"maxconn": 30}}'
+s = '{"backend": "eee.mage.edu","record":{"server": "100.1.7.9","weight": 20,"maxconn": 30}}'
 a = "{'key':'value'}"
 print (type(s),s)
 s1 = json.loads(s)  #json.loads 可以将字典或者列表形式的字符串转换成字典、列表(注意：字符串里的元素使用双引号"")
@@ -42,26 +42,45 @@ def add(dict_info):
     maxconn = dict_info['record']['maxconn']
     add_backend_format = 'backend '+ dict_info['backend']
     add_context_format = 'server %s %s weight %d maxconn %d' %(server,server,weight,maxconn)
-    result_list = fetch(dict_info['backend'])
-    backend_and_server_list = []
-    with open('haproxy.conf','r',encoding='utf-8') as old,\
-         open('ha.conf','w',encoding='utf-8') as new:
-        if result_list:
-            if add_context_format in result_list:
-                    print ('该域名的server记录已经存在了！')
-                    sys.exit()
-            else:
-                backend_and_server_list.append(backend)
-                backend_and_server_list.append(add_context_format)
-        else:
-            backend_and_server_list.append(backend)
-            backend_and_server_list.append(add_context_format)
-        for line in old:
-            new.write(line)
-        for line1 in backend_and_server_list:
-            new.write('\n'+ line1)
-    os.rename('haproxy.conf','haproxy.conf.bak')
-    os.rename('ha.conf','haproxy.conf')
+    print (backend,server,weight,maxconn,add_backend_format,add_context_format)
+    result_list = fetch(dict_info['backend'])  #调用fetch函数（查询用户的backend是否存在，把查询结果保存在result_list列表中）
+    #逻辑：如果backend不存在文件中，说明要新增，把旧文件的内容都读入到新文件，然后在最后面写入用户传入的backend和server
+    if not result_list:   #backend不存在
+        with open('haproxy.conf', 'r', encoding='utf-8') as old, \
+              open('ha.conf','w',encoding='utf-8') as new:  #打开旧文件，新建新文件
+            for line in old:
+                new.write(line)  #把旧文件全部写到新文件
+            new.write('\n')  #加一个空行（每个backend之间有一个空行）
+            new.write('\n' + add_backend_format + '\n')  #最后在把用户传入的backend和server写入到新文件的最后面
+            new.write(" "* 8 + add_context_format + '\n')
+    #逻辑：backend存在：
+           #1.server也存在：源文件不用作任何操作。
+           #2.server不存在：将用户传入的server记录追加到result_list（result_list中存在着backend查到的server结果 + 要新加的结果）。
+           #                循环旧文件，追加新文件（一行一行的写，到用户输入的backend的地方，设置标志位，并把result_list写入到backend
+           #                 的server段 ）
+    else:  #backend存在
+        result_list.append(add_context_format)   #将用户传入的server记录追加到result_list
+        if add_context_format in result_list:   #backend和server都存在
+            pass
+        else:     #backend存在，server不存在
+            with open('haproxy.conf', 'r', encoding='utf-8') as old, \
+              open('ha.conf','w',encoding='utf-8') as new:
+                flag = False    #设置标志位
+                for line in old:
+                    if line.startswith('backend') and line == add_backend_format:    #
+                        flag = True
+                        new.write(line)
+                        for line in result_list:
+                            new.write(" " * 8 +line + '\n')
+                    if flag and line.startswith('backend'):
+                        flag = False
+                        new.write(line)
+                        continue
+                    if line.strip() and not flag:
+                        new.write(line)
+
+
+
 
 add(s)
 
