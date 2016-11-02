@@ -2,7 +2,16 @@
 # -*- coding:utf-8 -*-
 #Author:pengbo
 import os,json,sys
-
+a = '''{
+            'backend': 'www.oldboy.org',
+            'record':{
+                'server': '100.1.7.9',
+                'weight': 20,
+                'maxconn': 30
+            }
+        }'''
+b = eval(a)
+print (type(b))
 def fetch(backend):               #定义查询的函数
     '''
     查询backend函数
@@ -19,7 +28,7 @@ def fetch(backend):               #定义查询的函数
             if line.strip() == 'backend ' + backend:  #查询用户输入的backend信息
                 flag = True  #找到用户输入的值，修改标志位
                 continue   #回到backend那行，打印server记录
-            if line.startswith('backend'): #到第二个backend开始处，说明server记录已经找完了
+            if line.strip() and line.startswith('backend'): #到第二个backend开始处，说明server记录已经找完了
                 flag = False  #修改标志位
             if flag and line.strip():
                result.append(line)   #将找到的记录追加到列表
@@ -42,7 +51,7 @@ def add(dict_info):
     maxconn = dict_info['record']['maxconn']
     add_backend_format = 'backend '+ dict_info['backend']
     add_context_format = 'server %s %s weight %d maxconn %d' %(server,server,weight,maxconn)
-    print (backend,server,weight,maxconn,add_backend_format,add_context_format)
+    #print (backend,server,weight,maxconn,add_backend_format,add_context_format)
     result_list = fetch(dict_info['backend'])  #调用fetch函数（查询用户的backend是否存在，把查询结果保存在result_list列表中）
     #逻辑：如果backend不存在文件中，说明要新增，把旧文件的内容都读入到新文件，然后在最后面写入用户传入的backend和server
     if not result_list:   #backend不存在
@@ -61,28 +70,28 @@ def add(dict_info):
     else:  #backend存在
         result_list.append(add_context_format)   #将用户传入的server记录追加到result_list
         if add_context_format in result_list:   #backend和server都存在
-            pass
+            pass   #backend和server都存在，不做操作
         else:     #backend存在，server不存在
             with open('haproxy.conf', 'r', encoding='utf-8') as old, \
-              open('ha.conf','w',encoding='utf-8') as new:
-                flag = False    #设置标志位
-                for line in old:
-                    if line.startswith('backend') and line == add_backend_format:    #
-                        flag = True
-                        new.write(line)
-                        for line in result_list:
-                            new.write(" " * 8 +line + '\n')
-                    if flag and line.startswith('backend'):
-                        flag = False
-                        new.write(line)
-                        continue
-                    if line.strip() and not flag:
-                        new.write(line)
+              open('ha.conf','w',encoding='utf-8') as new:    #打开旧文件，新建新文件
+                flag = False    #设置标志位（用来标示backend的开头和结尾）
+                for line in old:  #循环旧文件
+                    if line.startswith('backend') and line == add_backend_format:    #用户输入的backend和文件中的一致时
+                        flag = True   #改变标志位的标示（说明循环到了backend段了）
+                        new.write(line)  #将backend段写入到新文件
+                        for line in result_list:  #循环result_list列表
+                            new.write(" " * 8 +line + '\n')  #将所有的server也写入到新文件（到此，需要更新的backend和server都更新了）
+                    if flag and line.startswith('backend'):  #到下一个backend开始（说明需要更新的已经完了）
+                        flag = False  #修改标志位为原始状态
+                        new.write(line)   #将下一个backend段写入到新文件
+                        continue   #进入下一次循环（不进入下次循环，下面那个if条件也会被匹配，导致backend写两次）
+                    if line.strip() and not flag:   #标志位为原始状态
+                        new.write(line)   #全部写入到文件
 
 
 
 
-add(s)
+#add(s)
 
 
 
@@ -92,15 +101,14 @@ add(s)
 
 
 
-'''
-choice = input('你想对配置文件做什么操作：\n'
-               '1)查询\n'
-               '2)修改\n'
-               '3)删除 \n'
-               '4)其他任意字符退出 \n'
-               '请输入你的选择的序号:')
 
 while True:
+    choice = input('你想对配置文件做什么操作：\n'
+                   '1)查询\n'
+                   '2)修改\n'
+                   '3)删除 \n'
+                   '4)其他任意字符退出 \n'
+                   '请输入你的选择的序号:')
     if choice == '1':
         choice2 = input('请输入要查询的域名：')
         res = fetch(choice2)
@@ -114,4 +122,4 @@ while True:
     if choice == '2':
         choice3 = input('请输入要添加的内容：')
         add(choice3)
-'''
+
