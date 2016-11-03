@@ -33,7 +33,7 @@ def fetch(backend):               #定义查询的函数
             if flag and line.strip():
                result.append(line)   #将找到的记录追加到列表
         return result   #返回列表
-s = '{"backend": "eee.mage.edu","record":{"server": "100.1.7.9","weight": 20,"maxconn": 30}}'
+s = '{"backend": "eee.mage.edu","record":{"server": "100.1.7.16","weight": 20,"maxconn": 30}}'
 a = "{'key':'value'}"
 print (type(s),s)
 s1 = json.loads(s)  #json.loads 可以将字典或者列表形式的字符串转换成字典、列表(注意：字符串里的元素使用双引号"")
@@ -44,13 +44,13 @@ print (type(s3),a)
 print (type(s1),s1)
 print (type(s2),s2)
 def add(dict_info):
-    dict_info = json.loads(dict_info)
-    backend = dict_info['backend']
+    dict_info = json.loads(dict_info)   #用json函数把用户输入的backend转换为字典
+    backend = dict_info['backend']   #获取用户输入的backend
     server = dict_info['record']['server']
     weight = dict_info['record']['weight']
     maxconn = dict_info['record']['maxconn']
-    add_backend_format = 'backend '+ dict_info['backend']
-    add_context_format = 'server %s %s weight %d maxconn %d' %(server,server,weight,maxconn)
+    add_backend_format = 'backend '+ dict_info['backend']  #格式化backend哪行数据
+    add_context_format = 'server %s %s weight %d maxconn %d' %(server,server,weight,maxconn)  #格式化server段数据
     #print (backend,server,weight,maxconn,add_backend_format,add_context_format)
     result_list = fetch(dict_info['backend'])  #调用fetch函数（查询用户的backend是否存在，把查询结果保存在result_list列表中）
     #逻辑：如果backend不存在文件中，说明要新增，把旧文件的内容都读入到新文件，然后在最后面写入用户传入的backend和server
@@ -87,11 +87,42 @@ def add(dict_info):
                         continue   #进入下一次循环（不进入下次循环，下面那个if条件也会被匹配，导致backend写两次）
                     if line.strip() and not flag:   #标志位为原始状态
                         new.write(line)   #全部写入到文件
+def add2(dict_info):
+    dict_info = json.loads(dict_info)
+    add_backend_format = 'backend ' + dict_info['backend']  # 格式化backend哪行数据
+    add_context_format = 'server %s %s weight %d maxconn %d' \
+        % (dict_info['record']['server'],dict_info['record']['server'], dict_info['record']['weight'], dict_info['record']['maxconn'])  # 格式化server段数据
+    with open('haproxy.conf', 'r', encoding='utf-8') as old, \
+         open('ha.conf', 'w', encoding='utf-8') as new:  # 打开旧文件，新建新文件
+        in_backend = False
+        has_backend = False
+        has_record = False
+        for line in old:
+            if line.startswith('backend') and line.strip() == 'backend '+dict_info['backend']: #先处理backend段
+                has_backend = True
+                in_backend = True
+                new.write(line)  #将backend写入文件
+                continue
+            if in_backend and line.strip().startswith('backend'):  #找打下一个backend
+                if not has_record:
+                    new.write(" " *8 + add_context_format + '\n')
+                new.write(line)
+                in_backend = False
+                continue
+            if in_backend and line.strip() == add_context_format:
+                has_record = True
+                new.write(line)
+                continue
+            if line.strip():
+                new.write(line)
+        if not has_backend:
+            new.write('\n' + add_backend_format + '\n')  # 最后在把用户传入的backend和server写入到新文件的最后面
+            new.write(" " * 8 + add_context_format + '\n')
 
 
 
 
-#add(s)
+add2(s)
 
 
 
@@ -101,7 +132,7 @@ def add(dict_info):
 
 
 
-
+'''
 while True:
     choice = input('你想对配置文件做什么操作：\n'
                    '1)查询\n'
@@ -122,4 +153,4 @@ while True:
     if choice == '2':
         choice3 = input('请输入要添加的内容：')
         add(choice3)
-
+'''
