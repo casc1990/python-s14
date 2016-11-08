@@ -139,35 +139,58 @@ def add2(backend, record):   #添加函数2
             new.write('backend ' + backend + '\n')  #写backend
             new.write(' ' * 8 + record + '\n')    #写server
 
-def del_record(backend,record):
-    result = fetch(backend)
-    with open('haproxy.conf', 'r', encoding='utf-8') as old, \
-          open('ha.conf', 'w', encoding='utf-8') as new:  # 打开旧文件，新建新文件
-        if not result:  #backend不存在
-            pass
-        else:   #backend存在
-            flag2 = False
-            for line in old:
-                if line.strip().startswith('backend') and line.strip() == "backend " + backend:
-                    pass
-                    flag2 = True
-                if flag2 and line.strip().startswith('backend'):
-                    pass
-                    flag2 = False
+
+def delete(dict_info):
+    dict_info = eval(dict_info)
+    # 1.首先获取用户的记录并以列表的形式存储，以便于我们调用
+    del_backend = dict_info["backend"]
+    print (del_backend)
+    del_record = dict_info["record"]
+    context_title = "backend %s" % (del_backend)
+    context_record = "server %s %s weight %s maxconn %s" %(del_record["server"], del_record["server"], del_record["weight"], del_record["maxconn"])
+
+    # 调用上面定义的fetch()函数，得到包含backend内容的列表
+    fetch_list = fetch(del_backend)
+    # 判断1：若列表为空：直接返回
+    if not fetch_list:  #backend不存在，不做任何操作
+        return
+    # 判断2：否则不为空
+    else:   #backend存在
+        # 判断1：若用户输入的server信息不在fetch_list里面，直接返回
+        if context_record not in fetch_list: #record不存在
+            print ("your server message is not exists")
+            return
+        # 判断2：若输入的server在fetch_list里面，就将此server信息从列表中移除
+        else:   #record存在
+            fetch_list.remove(context_record)   #从列表中移除
+
+            # 逐行从ha文件中读取，并同时进行判断
+            # 核心思想：
+            # 首先边读取、边判断、边写入，
+            # 判断其实就是我们自己输入的backend，找到后将列表fetch_list信息写入到新的文件里面。
+            # 其余的非列表的内容直接从源文件ha写到新文件ha.new即可
+        with open('haproxy.conf', 'r') as old, open('ha.conf', 'w') as new: #打开文件
+            flag = False
+            has_write = False
+            for line in old:  #循环文件
+                #找到banckend开头行
+                if line.startswith('backend') and line.strip() == context_title:
+                    new.write(line)  #写开头行
+                    flag = True
                     continue
-                if not flag:
-                    pass
+                if flag and line.strip().startswith('backend'):  #下一个backend行
                     flag = False
-                    for line2 in result:
-                        if line2 == record:  #找到那条记录
-                            flag = True
-                            continue
-                        else:
-                            new.write(line)
+                if flag:   #处理找到的backend里面的内容
+                    if not has_write:  #此时的has_write = False
+                        print (fetch_list)
+                        for new_line in fetch_list:
+                            temp = "%s%s\n" % (" " * 8, new_line)
+                            new.write(temp)   #将列表中的数据写入文件
+                        has_write = True  #修改标志位
                 else:
                     new.write(line)
 
-'''
+
 while True:
     choice = input('你想对配置文件做什么操作：\n'
                    '1)查询\n'
@@ -189,6 +212,8 @@ while True:
         backend = input('请输入要添加的backend：')
         record = input('请输入要添加的server：')
         add(backend,record)
+    if choice == '3':
+        del_backend = input('请输入要删除的server：')
     if choice == '4':
         break
 
@@ -196,9 +221,10 @@ while True:
 
 os.rename("haproxy.conf" ,"haproxy.conf.bak")  # 将源文件改名
 os.rename('ha.conf', 'haproxy.conf')  # 将新文件改名为源文件
-'''
+
 #ret = fetch("www.oldboy.org")
 #print(ret)
 
-del_record('abc.mage.edu', "server 100.1.7.12 100.1.7.12 weight 20 maxconn 3000")
+#w = '{"backend": "abc.mage.edu","record":{"server": "100.1.7.12","weight": 20,"maxconn": 3000}}'
+#delete(w)
 #add2('abc.mage.edu', "server 100.1.7.11 100.1.7.11 weight 20 maxconn 3000")
