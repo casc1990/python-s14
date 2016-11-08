@@ -139,9 +139,35 @@ def add2(backend, record):   #添加函数2
             new.write('backend ' + backend + '\n')  #写backend
             new.write(' ' * 8 + record + '\n')    #写server
 
-#del():
-#    pass
+def del_record(backend,record):
+    result = fetch(backend)
+    with open('haproxy.conf', 'r', encoding='utf-8') as old, \
+          open('ha.conf', 'w', encoding='utf-8') as new:  # 打开旧文件，新建新文件
+        if not result:  #backend不存在
+            pass
+        else:   #backend存在
+            flag2 = False
+            for line in old:
+                if line.strip().startswith('backend') and line.strip() == "backend " + backend:
+                    pass
+                    flag2 = True
+                if flag2 and line.strip().startswith('backend'):
+                    pass
+                    flag2 = False
+                    continue
+                if not flag:
+                    pass
+                    flag = False
+                    for line2 in result:
+                        if line2 == record:  #找到那条记录
+                            flag = True
+                            continue
+                        else:
+                            new.write(line)
+                else:
+                    new.write(line)
 
+'''
 while True:
     choice = input('你想对配置文件做什么操作：\n'
                    '1)查询\n'
@@ -170,8 +196,9 @@ while True:
 
 os.rename("haproxy.conf" ,"haproxy.conf.bak")  # 将源文件改名
 os.rename('ha.conf', 'haproxy.conf')  # 将新文件改名为源文件
+'''
 #ret = fetch("www.oldboy.org")
 #print(ret)
 
-#add('abc.mage.edu', "server 100.1.7.18 100.1.7.18 weight 20 maxconn 3000")
+del_record('abc.mage.edu', "server 100.1.7.12 100.1.7.12 weight 20 maxconn 3000")
 #add2('abc.mage.edu', "server 100.1.7.11 100.1.7.11 weight 20 maxconn 3000")
