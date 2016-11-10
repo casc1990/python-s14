@@ -11,8 +11,9 @@ import os,time
 #    1. 函数即变量
 #    2. 高阶函数
 #        a. 把一个函数名作为实参传给另外一个函数（在不修改被装饰函数源代码的情况下为其添加功能）
-#        b. 返回值中包含函数名。
+#        b. 返回值中包含函数名。（在不修改函数的调用方式的情况下为其添加功能）
 #    3. 嵌套函数
+        #在一个函数的函数体内用def去申明一个函数
 '''
 #函数即变量
 def bar():
@@ -51,19 +52,28 @@ def test():
     print ('in the test')
     time.sleep(3)
 bar(test)   #在不修改被装饰函数源代码的情况下为其添加功能（高阶函数特性一）
-'''
+    #返回值中包含函数名
 def bar():
     print ('in the bar')
     time.sleep(3)
 def test(func):
-    print (func)
+    print (func)   #增加的新功能
     return func
 #test(bar)  #打印bar函数的内存地址，不会打印返回值（print (func)）
 #print (test(bar))  #打印bar函数的内存地址和打印返回值（print (func)和 return func）
 #test(bar())  #把函数的返回值传给函数；test(bar)将内存地址传给函数
 bar = test(bar)
-bar()   #不修改函数的调用方式，为函数添加了功能
-
+bar()   #不修改函数的调用方式，为函数添加了功能。(bar=test(bar)的返回值，调用
+        #返回值相当于调用了上面定义的bar()函数，这里的bar()不等于上面的bar函数，
+        #名字一样，只是想演示“不修改函数的调用方式，为函数添加了功能”  )
+'''
+#函数嵌套
+def bar():
+    print ('in the bar')
+    def test():  #在函数体内定义函数
+        print ('in the test')
+    test()
+bar()
 
 
 
