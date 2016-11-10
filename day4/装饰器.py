@@ -40,6 +40,7 @@ def test():
     print ('in the test')
 '''
 #高阶函数
+'''
     #把一个函数名作为实参传给另外一个函数
 def bar(func):
     start_time = time.time()
@@ -50,4 +51,19 @@ def test():
     print ('in the test')
     time.sleep(3)
 bar(test)   #在不修改被装饰函数源代码的情况下为其添加功能（高阶函数特性一）
+'''
+def bar():
+    print ('in the bar')
+    time.sleep(3)
+def test(func):
+    print (func)
+    return func
+#test(bar)  #打印bar函数的内存地址，不会打印返回值（print (func)）
+#print (test(bar))  #打印bar函数的内存地址和打印返回值（print (func)和 return func）
+#test(bar())  #把函数的返回值传给函数；test(bar)将内存地址传给函数
+bar = test(bar)
+bar()   #不修改函数的调用方式，为函数添加了功能
+
+
+
 
