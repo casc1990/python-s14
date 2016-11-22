@@ -124,3 +124,35 @@ print (max(li))  #最大值
 print (min(li))  #最小值
 print (sum(li))  #求和
 
+#repr() 执行元素或者类、函数的__repr__方法，如果没有这个方法就保错
+r = repr('hello')  #'hello'.__repr__()
+str_r = 'hello'.__repr__()
+print (r,str_r)
+
+#reversed()  第一个元素和最后一个元素反转  执行元素或者类、函数的.reversed()方法，如果没有这个方法就保错
+lst = [1,2,3,4]
+lst.reverse()   #结果为：[4, 3, 2, 1] 原地修改，没有返回值
+r = lst.reverse()   #原地修改，没有返回值(None)
+print (r)
+lst2 = [5,6,7,8]
+reversed(lst2)    #等价于lst2.reverse() 原地修改，也没有返回值
+print (lst,lst2)
+
+#round() 四舍五入
+r = round(1.2)  #四舍五入
+t = round(1.5)
+print (r,t)
+
+#sorted() 按ascii排序
+lst = [12,2,3,41]
+lst3 = [22,45,1,2,6]
+print (lst3)
+lst.sort()    #排序
+sorted(lst3)  #lst3.sort()
+
+
+
+
+
+
+print (lst)
