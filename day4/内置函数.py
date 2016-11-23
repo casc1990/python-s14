@@ -146,13 +146,22 @@ print (r,t)
 #sorted() 按ascii排序
 lst = [12,2,3,41]
 lst3 = [22,45,1,2,6]
-print (lst3)
-lst.sort()    #排序
-sorted(lst3)  #lst3.sort()
+print ('---start--')
+lst.sort()    #按ascii码升序排序 原地修改，没有返回值(None)
+r2 = sorted(lst3)  #不会修改原数据，只是返回排序后的结果
+print ('----')
+print (r2,lst3,lst)
+#总结：sorted()=xx.sort() 区别：xx.sort()直接修改了元数据，没有返回值；sorted()不会修改原数据，只是返回排序后的结果
+
+#zip()   zip([seql, ...])接受一系列可迭代对象作为参数，将对象中对应的元素打包成一个个tuple（元组），然后返回由这些tuples组成的list（列表）。
+#       若传入参数的长度不等，则返回list的长度和参数中长度最短的对象相同。
+l1 = ['alex',1,2,3]
+l2 = ['is',4,5,6]
+l3 = ['sb',7,8,9]
+r = zip(l1,l2,l3)
+#print (list(r))  #输出：[('alex', 'is', 'sb'), (1, 4, 7), (2, 5, 8), (3, 6, 9)]
+temp = list(r)[0]
+print (' '.join(temp))
 
 
 
-
-
-
-print (lst)
