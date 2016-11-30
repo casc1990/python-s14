@@ -31,7 +31,7 @@ print (s2)
 def fib(max):   #普通函数
     n,a,b = 0,0,1  #n代表取几个值  a代表第一个元素   b代表第二个元素
     while n < max:  #n定义了取几个值
-        print (b)
+        print (b)  #取最后一个数值
         a,b=b,a+b   #a,b=b,a+b相当于t=(b,a+b) 则 a = t[0] ，b= t[1]
         n+=1
 print ('华丽的分界线')
@@ -67,7 +67,7 @@ print (o.__next__())
 
 #生成器函数：使用__nex__方法和next()函数可以拿到返回值，如果使用for不能得到返回值
 g = fib2(6)
-while True:  #生成器对象使用循环是拿不到返回值的，无效循环，捕获异常
+while True:  #生成器对象使用循环是拿不到返回值的，无效循环，捕获异常。（通过异常捕获返回值）
     try:
         x = next(g)
         print('g:', x)

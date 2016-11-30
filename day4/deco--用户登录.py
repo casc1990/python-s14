@@ -36,7 +36,7 @@ def bbs():
     #接收被装饰函数参数的装饰器函数负责处理具体的装饰内容--附加功能（第三层）
 def auth(auth_type):   #auth_type=file
     print ('auth_type:',auth_type)
-    def outer_wrapper(func):   #func=home
+    def outer_wrapper(func):   #func=home (这个函数会被执行两次)
         print ('func:',func)
         def wrapper(*args, **kwargs):  #args,kwargs接受用户传入给函数的任意参数
             print ('wrapper:',*args, **kwargs)
@@ -53,8 +53,8 @@ def auth(auth_type):   #auth_type=file
             elif auth_type == 'remote':
                 print ('welcone use remote authentication')
 
-        return wrapper
-    return outer_wrapper
+        return wrapper    # return hone （返回被装饰函数的内存对象）
+    return outer_wrapper  #返回到outer_wrapper(func)开头，在执行一遍，只有这样，wrapper才会被执行
 
 def index():
     print ('welcome access index page!')
