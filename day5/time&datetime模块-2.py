@@ -62,30 +62,33 @@ print (time.ctime(time.time()-120)) #将当前时间的前2分钟的时间戳形
 
 #datetime模块
 print ('datatime模块重新封装了time模块，提供更多接口，提供的类有：date,time,datetime,timedelta,tzinfo。')
-#date类
+#date类--日期相关（年-月-日）
 print   ('date.max:', datetime.date.max)  #最大时间范围（9999-12-31）
 print   ('date.min:', datetime.date.min)  #最小时间范围（0001-01-01）
 print   ('date.today():', datetime.date.today())  #今天（2016-12-05）
 print   ('date.fromtimestamp():', datetime.date.fromtimestamp(time.time())) #将时间戳转换为2016-12-05
-print (datetime.date(2016, 10, 26))  #打印传递的时间
+print (datetime.date(2016, 10, 26))  #打印传递的时间(2016-10-26)
 now = datetime.date(2016, 10, 26)
-print (now.replace(day = 27))  #修改传递的时间（year, month, day都可以修改）
-#time类
+print (now.replace(day = 27))  #修改传递的日期（year, month, day都可以修改）(2016-10-27)
+#time类--时间相关（时：分：秒）
 #datetime.time(hour[ , minute[ , second[ , microsecond[ , tzinfo] ] ] ] )
 print (datetime.time(23, 46, 10))  #23:46:10
 tm = datetime.time(23, 46, 10)
-print   ('hour: %d, minute: %d, second: %d, microsecond: %d' % (tm.hour, tm.minute, tm.second, tm.microsecond)) #打印时间
-tm1 = tm.replace(hour=20)  #修改时间
-#datetime类
-print(datetime.datetime.now()) #返回 2016-08-19 12:47:03.941925
-print(datetime.date.fromtimestamp(time.time()) )  # 时间戳直接转成日期格式 2016-08-19
-print(datetime.datetime.now())
-print(datetime.datetime.now() + datetime.timedelta(3)) #当前时间+3天
+print   ('hour: %d, minute: %d, second: %d' % (tm.hour, tm.minute, tm.second)) #打印时间
+tm1 = tm.replace(hour=20)  #修改传递的时间（hour,minute,second) (20:46:10)
+#datetime类--日期+时间（2016-08-19 12:47:03.941925）
+print(datetime.datetime.today()) # 等于datetime.datetime.now()
+print(datetime.datetime.now())  #返回 2016-08-19 12:47:03.941925
+print(datetime.datetime.max) #9999-12-31 23:59:59.999999
+#timedelta类--时间加、减
+print(datetime.datetime.now() + datetime.timedelta(3)) #当前时间+3天。不写单位默认为days
+print(datetime.datetime.now() + datetime.timedelta(days=3)) #当前时间+3天
 print(datetime.datetime.now() + datetime.timedelta(-3)) #当前时间-3天
 print(datetime.datetime.now() + datetime.timedelta(hours=3)) #当前时间+3小时
 print(datetime.datetime.now() + datetime.timedelta(minutes=30)) #当前时间+30分
 c_time  = datetime.datetime.now()
-print(c_time.replace(minute=3,hour=2)) #时间替换
+print(c_time.replace(minute=3,hour=2)) #时间修改（year,month,day,hour,minute,second）
+
 
 
 
