@@ -43,3 +43,4 @@ print (os.path.isdir(__file__))    #如果path是不是目录，则返回True。
 
 
 
+
