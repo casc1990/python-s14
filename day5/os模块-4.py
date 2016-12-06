@@ -29,6 +29,7 @@ os.system('dir')
 print (os.environ)   #获取系统环境变量
 
 #path--路径相关
+print (__file__)  #查看当前文件的相对路径
 print (os.path.abspath(__file__))  #返回当前路径的绝对路径
 print (os.path.abspath(r'd:\backup'))  #返回指定路径的绝对路径
 print (os.path.split(__file__))  #将路径分割成目录和文件名二元组返回。('D:/python-project/python-s14/day5', 'os模块-4.py')
@@ -38,9 +39,7 @@ print (os.path.exists(__file__))  #如果path存在，返回True；如果path不
 print (os.path.isabs(__file__))     #如果path是绝对路径，返回True
 print (os.path.isfile(__file__))   #如果path是不是文件，返回True。否则返回False
 print (os.path.isdir(__file__))    #如果path是不是目录，则返回True。否则返回False
-
-
-
-
-
-
+print (os.path.join('/root/','user/','test.txt')) #将多个路径组合后返回。/root/user/test.txt
+print (os.path.join('D:\\','user\\','test.txt'))  #D:\user\test.txt
+print (os.path.getatime(__file__))  #返回path所指向的文件或者目录的最后访问时间
+print (os.path.getmtime(__file__))  #返回path所指向的文件或者目录的最后修改时间
