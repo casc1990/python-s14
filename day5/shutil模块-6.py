@@ -37,31 +37,35 @@ f5 = tarfile.open('backup.tar.gz','r:gz')  #用gzip方式解压backup.tar.gz
 f5.extractall() #将所有文件解压到当前。加上绝对路径就解压到指定路径
 f5.close()  #关闭文件
 
-
-
-#tarfile  tar压缩与解压缩
-
-
 print ('shutil 是高级的文件，文件夹，压缩包处理模块。')
 #shutil.copyfileobj(fsrc, fdst[, length])  将文件内容拷贝到另一个文件中
-#shutil.copyfileobj(open('test','r',encoding='utf-8'),open('test1.txt','w',encoding='utf-8'))
+shutil.copyfileobj(open('test','r',encoding='utf-8'),open('test1.txt','w',encoding='utf-8'))
 
-#shutil.copyfile(src, dst)
+#shutil.copyfile(src, dst) 拷贝文件
+shutil.copyfile('test','test1.txt')
 
-#shutil.copymode(src, dst)
+#shutil.copymode(src, dst)  仅拷贝权限。内容、组、用户均不变
+shutil.copymode('test','test1.txt')  #拷贝test的文件权限并赋值给test1.txt（test权限755，test1.txt权限也就是755，其他不变）
 
-#shutil.copystat(src, dst)
+#shutil.copystat(src, dst)  仅拷贝状态的信息，包括：mode bits, atime, mtime, flags
+shutil.copystat('test','test1.txt')  #拷贝test的状态信息给test1.txt,内容不变
 
-#shutil.copy(src, dst)
+#shutil.copy(src, dst) 拷贝文件和权限
+shutil.copy('test','test1.txt')  #拷贝内容和权限
 
-#shutil.copy2(src, dst)
+#shutil.copy2(src, dst) 拷贝文件和状态信息
+shutil.copy2('test','test1.txt') #内容和状态（mode bits, atime, mtime, flags）
 
-#shutil.ignore_patterns(*patterns)
-#shutil.copytree(src, dst, symlinks=False, ignore=None)
+#shutil.ignore_patterns(*patterns)  忽略那些文件
+#shutil.copytree(src, dst, symlinks=False, ignore=None)  递归的去拷贝文件夹
+#shutil.copytree('folder1', 'folder2', ignore=shutil.ignore_patterns('*.pyc', 'tmp*'))  #递归拷贝文件，忽略*.pyc', 'tmp*
+#shutil.copytree('folder1', 'folder2', symlinks=True, ignore=shutil.ignore_patterns('*.pyc', 'tmp*')) #链接文件也复制
 
-#shutil.rmtree(path[, ignore_errors[, onerror]])
+#shutil.rmtree(path[, ignore_errors[, onerror]])  递归的去删除文件
+#shutil.rmtree('folder1')  #递归删除目录
 
-#shutil.move(src, dst)
+#shutil.move(src, dst) 递归的去移动文件，它类似mv命令，其实就是重命名。
+#shutil.move('folder1', 'folder3')  移动目录并重命名
 
 #shutil.make_archive(base_name, format,...)
 print ('''
@@ -77,6 +81,7 @@ print ('''
     logger： 用于记录日志，通常是logging.Logger对象
 ''')
 print ('shutil 对压缩包的处理是通过调用ZipFile 和 TarFile两个模块来进行的。')
-
+#将 /Users/wupeiqi/Downloads/test 下的文件打包放置 /Users/wupeiqi/目录 ，不指定目录放在当前目录
+ret = shutil.make_archive("/Users/wupeiqi/wwwwwwwwww", 'gztar', root_dir='/Users/wupeiqi/Downloads/test')
 
 #
