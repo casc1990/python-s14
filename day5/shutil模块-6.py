@@ -22,6 +22,9 @@ for i in f2.infolist():   #f2.infolist() 返回压缩包内所有文件的信息
 #                                           i.header_offset:偏移。输出如：test1.txt 21730 21764
 f3 = zipfile.ZipFile('backup.zip','r')
 print (f3.read(f3.namelist()[0]))  #f3.read()方法可以读取文件内容（取第一个文件，读取文件内容）
+f_3 = zipfile.ZipFile('backup.zip','r')
+f_3.extractall()   #将所有文件解压到当前。加上绝对路径就解压到指定路径
+f_3.close() #关闭文件
 
 #tarfile tar压缩与解压缩
 #tar压缩
@@ -82,6 +85,6 @@ print ('''
 ''')
 print ('shutil 对压缩包的处理是通过调用ZipFile 和 TarFile两个模块来进行的。')
 #将 /Users/wupeiqi/Downloads/test 下的文件打包放置 /Users/wupeiqi/目录 ，不指定目录放在当前目录
-ret = shutil.make_archive("/Users/wupeiqi/wwwwwwwwww", 'gztar', root_dir='/Users/wupeiqi/Downloads/test')
+ret = shutil.make_archive("/Users/wupeiqi/wwwwwwwwww.tar.gz", 'gztar', root_dir='/Users/wupeiqi/Downloads/test')
 
 #
