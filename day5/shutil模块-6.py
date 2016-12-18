@@ -86,5 +86,3 @@ print ('''
 print ('shutil 对压缩包的处理是通过调用ZipFile 和 TarFile两个模块来进行的。')
 #将 /Users/wupeiqi/Downloads/test 下的文件打包放置 /Users/wupeiqi/目录 ，不指定目录放在当前目录
 ret = shutil.make_archive("/Users/wupeiqi/wwwwwwwwww.tar.gz", 'gztar', root_dir='/Users/wupeiqi/Downloads/test')
-
-#
