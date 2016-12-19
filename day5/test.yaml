@@ -1,0 +1,16 @@
+- name: create user
+  hosts: web
+  user: root
+  gather_facts: false
+  remote_user: root
+  vars:
+  - user: "xiaorui"
+  tasks:
+  - name: create {{ user }}
+    user: name="{{ user }}"
+  tasks:
+  - name: start nginx
+    service: name=nginx state=started
+  tasks:
+  - name: Copy file to client
+    copy: src=/root/rs.sh dest=/root/ccc
