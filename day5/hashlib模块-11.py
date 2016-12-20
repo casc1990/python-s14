@@ -59,3 +59,12 @@ h = hmac.new('wueiqi')
 h.update('hellowo')
 print (h.hexdigest())
 
+
+
+
+
+
+
+
+
+
