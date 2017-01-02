@@ -38,3 +38,5 @@ print (boy.money)  #访问新添加的属性
 girl = Woman('王美女',32)  #实例化子类
 girl.work()  #调用父类中的方法
 girl.sleep()  #调用子类中的方法，子类中的sleep方法会执行父类中的sleep方法
+
+
