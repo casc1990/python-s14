@@ -2,33 +2,33 @@
 # -*- coding:utf-8 -*-
 #Author:pengbo
 class StaticMethod(object):
-    name = '我是类变量'
+    name = '我是类变量'   #类变量
     def __init__(self,name,age,sex):
         self.name = name
         self.age = age
         self.sex = sex
         self.id = 5
-    @staticmethod
+    @staticmethod    #静态方法
     def foo(self):
         print ("%s is static method foo()." % self.name)
         print (self.id)
-    @staticmethod
+    @staticmethod  #静态方法
     def foo2():
         print("This is static method foo().")
     def eat(self):
         print("%s is eating" % self.name)
 
 class ClassMethod(object):
-    name = '我是类变量'
+    name = '我是类变量'   #类变量
     def __init__(self,name,age,sex):
         self.name = name
         self.age = age
         self.sex = sex
-    @classmethod
+    @classmethod   #类方法
     def bar(self):
         print ("%s is static method foo()." %self.name)
         #print (self.age)
-    @classmethod
+    @classmethod   #类方法
     def foo2(self):
         print("This is static method foo().")
     def eat(self):
