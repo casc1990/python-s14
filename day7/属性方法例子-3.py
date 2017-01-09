@@ -34,7 +34,10 @@ class Flight(object):
     def flight_status(self):
         print("status got removed...")
 
+
 f = Flight("CA980")
 f.flight_status
 f.flight_status =  0 #触发@flight_status.setter
 del f.flight_status #触发@flight_status.deleter
+
+
