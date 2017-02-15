@@ -16,5 +16,7 @@ for i in range(3): #只允许猜3次
     #count+=1  #count+=1相当于count=count+1
     #print(count)
 #if count == 3: count==3时机会已经用完了，这时候在打印提示信息，就避免了输入正确时也打印这条信息
+#在 python 中，for … else 表示这样的意思，for 中的语句和普通的没有区别，else 中的语句会在循环\
+#   正常执行完（即 for 不是通过 break 跳出而中断的）的情况下执行，while … else 也是一样。
 else:  #while不成立，执行else语句，相当于if..else
     print ('3次机会已经用完了，不能猜了，程序退出..')
