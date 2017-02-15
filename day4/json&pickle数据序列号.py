@@ -54,3 +54,5 @@ with open('test.txt','rb') as f:
     file_pickle_to_dict = pickle.load(f)  #从文件反序列化
     print ('form file:',file_pickle_to_dict,type(file_pickle_to_dict))
 print (str_to_pickle['key2'],type(str_to_pickle))
+
+
