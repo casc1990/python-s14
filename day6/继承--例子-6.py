@@ -9,7 +9,7 @@ class School(object):   #定义学校类
         self.students = []
         self.staffs = []
     def enroll(self,stu_obj):  #提供注册功能并将注册的学员加入到学员列表中
-        print ('为学员%s办理注册手续' %self.name)
+        print ('为学员%s办理注册手续' %stu_obj.name)
         self.students.append(stu_obj)
     def hire(self,staff_obj):  #提供雇佣功能，将老师信息加入到老师列表中
         self.staffs.append(staff_obj)

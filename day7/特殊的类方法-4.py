@@ -14,9 +14,9 @@ class School(object):
         self.age = age
     def eat(self):
         print ('{0} is eatting'.format(self.name))
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs):  #对象、类后加()就会触发执行的方法(如:School('alex',23)())
         print ('running call!',args,kwargs)
-    def __str__(self):
+    def __str__(self):  #打印对象时，如果有__str__方法就会打印__str__方法的返回值
         return ('<obj:%s>' %self.name)
 student = School('alex',23)
 student.eat() #调用一般方法
