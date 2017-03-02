@@ -120,10 +120,26 @@ do something
 while 1:
     try:
         x =1/0
-    except Exception as e:
+    except Exception as e:  #try子句异常，走except，并打印异常
         print (e)
-    finally:
+    finally:  #处理善后工作（try和except都不执行，finally也会执行）
         print ('del x')
-        del x
+        del x   #删除变量x
 
+#断言
+assert 1==1   #判断1肯定等于1，如果不是就抛出错误
 
+print ('断言就是断定什么东西必然是什么，如果不是，就抛出错误')
+class Account(object):
+    def __init__(self, number):
+        self.number = number
+        self.balance = 0
+    def deposit(self, amount):
+        assert amount > 0
+        self.balance += balance
+    def withdraw(self, amount):
+        assert amount > 0
+        if amount <= self.balance:
+            self.balance -= amount
+        else:
+            print ("balance is not enough.")
