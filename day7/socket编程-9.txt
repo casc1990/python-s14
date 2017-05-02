@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+#Author:pengbo
+#Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。
+#它把复杂的TCP/IP协议族隐藏在Socket接口里面，用户通过接口就可以实现通信
+
+Socket Families(地址簇)
+    socket.AF_UNIX unix本机进程间通信
+    socket.AF_INET　IPV4　
+    socket.AF_INET6  IPV6
+
+Socket Types
+    socket.SOCK_STREAM  #for tcp
+    socket.SOCK_DGRAM   #for udp
+    socket.SOCK_RAW     #原始套接字，普通的套接字无法处理ICMP、IGMP等网络报文，而SOCK_RAW可以
+    socket.SOCK_RDM  #是一种可靠的UDP形式，即保证交付数据报但不保证顺序
+
+socket参数
+    语法：socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)
+    socket.socket() #建立socket对象（默认为ipv4，tcp连接）
+    sk.bind(('localhost',80))  #服务端绑定要监听的套接字（ip+port的元祖形式）
+    sk.listen(5) #开始监听传入的连接，相当于打开端口。sk.listen(5)中5表示可以挂起的最大连接数量（排队）。
+    sk.accept() #等待数据发送过来（如果有请求过来，该方法返回2个值，第一个是连接过来的客户端实例，第二个是连接客户端的ip和端口）
+    conn,addr = sk.accept() #接受accept()的返回值
+    conn.recv(bufsize[,flag]) #接受套接字的数据。数据以字符串形式返回，
+        conn.recv(1024)接收1024bit的数量（注意：即使你写的接受的值多大conn.recv(1024000)，每个系统接受的数据量都是有限的）
+    conn.send(b'hello world') #将string中的数据发送到连接的套接字。可能未将指定内容全部发送（注意：不能发送空，每次发送的数据量也是有限的，根据系统而定）。
+    conn.sendall(string[,flag])  #将string中的数据发送到连接的套接字，但在返回之前会尝试发送所有数据。成功返回None，失败则抛出异常。
+    sk.close() #关闭套接字
+    sk.connect(('localhost',6969)) #连接到指定的套接字
+
+

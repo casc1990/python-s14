@@ -4,10 +4,11 @@
 class Flight(object):
     def __init__(self,name):
         self.flight_name = name
+        self.hangban_status = 1
 
     def checking_status(self):
         print("checking flight %s status " % self.flight_name)
-        return  1
+        return  self.hangban_status
 
     @property
     def flight_status(self):
@@ -28,6 +29,7 @@ class Flight(object):
             1 :"arrived",
             2 : "departured"
         }
+        self.hangban_status = status
         print("\033[31;1mHas changed the flight status to \033[0m",status_dic.get(status) )
 
     @flight_status.deleter  # 删除
@@ -37,6 +39,7 @@ class Flight(object):
 f = Flight("CA980")
 f.flight_status
 f.flight_status =  0 #触发@flight_status.setter
+f.flight_status #再次查看状态，状态已经改变
 del f.flight_status #触发@flight_status.deleter
 
 
