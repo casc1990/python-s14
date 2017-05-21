@@ -1,3 +1,44 @@
 粘包：发送的多条数据粘在一起，不能分开
-socke.send时如果发送多条数据，可能会出去粘包现象，因为发送多条数据时，缓存区有时会缓存数据，一次发送多条数据
+socket.send时如果发送多条数据，可能会出去粘包现象，因为发送多条数据时，缓存区有时会缓存数据，一次发送多条数据
         可以使用os.time(0.5)强制超时
+socket.recv()是阻塞的，客户端不发送数据，就一直阻塞在哪儿
+socket的客户端如果断开，会发送空给服务端，所有判断客户端发送过来的为空，就可以说明客户端已经断开
+
+socketServer: 可以处理多个客户端连接，实现socket并发的一种服务。socketServer是基于socket的一种封装
+socketServer分类：
+    1.处理单个tcp：
+        class socketserver.TCPServer(server_address, RequestHandlerClass, bind_and_activate=True)
+    2.处理udp：
+        class socketserver.UDPServer(server_address, RequestHandlerClass, bind_and_activate=True)
+    3.其他：
+        class socketserver.UnixStreamServer(server_address, RequestHandlerClass, bind_and_activate=True) --本机进程tcp通信
+        class socketserver.UnixDatagramServer(server_address, RequestHandlerClass,bind_and_activate=True)--本机进程udp通信
+    4.处理并发：
+        多线程TCP: class socketserver.ThreadingTCPServer(server_address, RequestHandlerClass, bind_and_activate=True)
+        多进程TCP: class socketserver.ForkingTCPServer(server_address, RequestHandlerClass, bind_and_activate=True)
+        多线程、多进程UDP：同上。注意：多进程在windows上会报错。因为window的机制和linux的不同
+
+让你的socketserver并发起来， 必须选择使用以下一个多并发的类
+    class socketserver.ForkingTCPServer
+    class socketserver.ForkingUDPServer
+    class socketserver.ThreadingTCPServer
+    class socketserver.ThreadingUDPServer
+创建socketserver需要以下四步：
+    1.必须自己创建一个请求处理类，并且这个类要继承BaseRequestHandler，并且还要重写父类里的handle()方法
+    2.必须实例化一个socketServer，并传递服务器的ip和你上面写的请求处理类给这个socketServer
+    3.调用实例的请求处理方法，处理请求，
+        例如：server.handle_request() 只处理一个请求（用的较少）
+             server.forever()  处理多个请求，永远执行（推荐使用）
+    4.最后，关闭socketServer
+        例如：server_close()  关闭socketServer
+
+TCPServer和UDPServer都继承父类BaseServer，BaseServer的一些常用方法如下：
+    fileno() --文件描述符
+    handle_request() --处理单个请求
+    shutdown()  告诉serve_forever()循环停止并等待其停止。
+    serve_forever(poll_interval=0.5) 处理多个请求，直到一个明确的shutdown()请求。每poll_interval秒轮询一次shutdown。
+    server_close() 关闭socketserver
+    address_family 地址簇
+    RequestHandlerClass 用户定义的请求处理类
+    server_address：服务器侦听的地址
+    allow_reuse_address：服务器是否允许地址的重用

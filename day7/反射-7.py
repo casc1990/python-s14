@@ -28,7 +28,7 @@ else:
 #delattr(obj,name_str): 删除对象(obj)里对应的字符串(name_str)名称的方法或属性
 '''
 class A(object):
-    def __getattr__(self, item): #访问itemz这个属性或者方法，它不存在的时候，此方法被调用
+    def __getattr__(self, item): #访问item这个属性或者方法，它不存在的时候，此方法被调用
         print ('you use getattr')
     def __setattr__(self, key, value): #如果要给 key 赋值，就调用这个方法
         print ('you use setattr')
@@ -39,7 +39,7 @@ a.x = 7  #输出为：you use setattr （设置方法或者属性：调用__seta
 print (a.x) #输出为7
 
 class B(object):
-    def __getattribute__(self, item): #无论 name方法或者属性是否存在，都要被调用
+    def __getattribute__(self, item): #无论 item方法或者属性是否存在，都要被调用
         print ('you use getattribute')
         return object.__getattribute__(self,item)
 b = B()
