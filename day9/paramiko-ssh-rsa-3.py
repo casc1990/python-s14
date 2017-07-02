@@ -17,7 +17,7 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(hostname='192.168.128.128', port=22, username='root',pkey=private_key) #连接时使用私匙
 
 # 执行命令
-stdin, stdout, stderr = ssh.exec_command('df')
+stdin, stdout, stderr = ssh.exec_command('free -g',timeout=5)
 # 获取命令结果
 result = stdout.read()
 print (result.decode())
