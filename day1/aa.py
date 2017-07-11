@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/en'/v python
 # -*- coding:utf-8 -*-
 #Author:pengbo
 f = open('user.txt')
