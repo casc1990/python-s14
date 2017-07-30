@@ -144,5 +144,76 @@ print (sorted(names)) #排序，不修改原数据
 print (list(reversed(names))) #反转，不修改原数据
 #sort、reverse 修改原数据  sorted、reversed 不修改原数据
 
+#break、continue
+import math
+print (math.sqrt(99))
+for i in range(99,0,-1): #步进为-1
+    root = math.sqrt(i)
+    if root == int(root):
+        print (i)
+        break   #计算100以内的算术平方根
+#break:跳出最内层循环
+#continue: 跳到下一轮循环的开头继续循环
 
+#while True
+while True:
+    words = input('please enter a word: ')
+    if  not words: break
+    print ('the words was'+ words)
+    break
+#while True语句一定要有退出条件
 
+#循环中的else子句
+from math import sqrt
+for i in range(99,80,-1):
+    root = sqrt(i)
+    if root == int(root):
+        print (i)
+        break  #如果循环是因为break退出的，else不会执行
+else: #循环正常执行完，做些善后的工作
+    print ("Didn't find it!")
+#for 中的语句和普通的没有区别，else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出而中断的）的情况下执行，while … else 也是一样。
+s = ["a111", "b222", "c333", "d444", "e555"]
+found = False
+for c in s:
+    if c.startswith("c"):
+        found = True
+        print ("发现以字母c开头的项")
+        break
+if not found:
+    print ("没有发现以字母c开头的项")
+#给变量打标签。结合if实现对不同条件的处理
+
+#列表推导式
+print ([x*x for x in range(10)])  #[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+print ([x*x for x in range(10) if x % 2 ==0]) #[0, 4, 16, 36, 64]
+
+print ([(x,y) for x in range(2) for y in range(2)]) #[(0, 0), (0, 1), (1, 0), (1, 1)]
+#等价于
+result = []
+for x in range(2):
+    for y in range(2):
+        result.append((x,y))
+print (result)  #[(0, 0), (0, 1), (1, 0), (1, 1)]
+
+girls = ['alice','bernice','clarice']
+boys = ['chris','arnold','bob']
+print ([b for b in boys for g in girls if b[0] == g[0]]) #['chris', 'arnold', 'bob']
+#列表推导式：[ 循环体 循环条件1 循环条件2..逻辑判断..], 注意是[],不是(),结果生成的是列表
+
+print ('pass在循环里什么都不会做的，起代码占位符作用')
+x = 1
+del x
+print ('del函数删除对象的变量名称')
+
+#exec、eval函数
+exec('b=4+5')
+print (b) #输出：9
+abc = 45
+exec('abc+=1')
+print (abc) #输出：46
+#exec（'string'）:执行字符串代码块
+
+print (eval(input('enter an expression: '))) #输入：4+5  输出：9
+print (eval('3**3')) #输出：27
+#eval（'string'）:表达式求值
