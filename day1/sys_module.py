@@ -7,3 +7,4 @@ print (sys.argv)  #['sys_module', 'hehe', 'ls',-l] 打印文件的相对路径�
 print (sys.argv[0])  #['sys_module'] 打印文件的相对路径
 print (os.system(sys.argv[2])) #执行shell的ls命令（os.system接收命令行参数，运行参数指令）
 print (os.system(str(sys.argv[2])+' ' +str(sys.argv[3]))) # 执行 ls -l
+print (os.system(' '.join(sys.argv[2:3])))  #执行ls -l（因为sys.argv输出的是列表，用join方法转换成字符串 ）
