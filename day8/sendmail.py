@@ -2,7 +2,7 @@
 #- coding:utf-8
 import pymysql
 import datetime,requests,os,sys
-reload(sys)
+#reload(sys)
 sys.setdefaultencoding('utf-8')
 #tolist = "iaas_ops@jd.com"
 email_list = "pengbo@jd.com"
