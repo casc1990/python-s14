@@ -448,27 +448,30 @@ while True:
         print (seq,':',value)
         provinces[str(seq)] = value
     choice1 = input('\t请输入你想查询的省份或者直辖市: ')
-    if choice1 in provinces.keys():
-        for seq2,value2 in enumerate(china[provinces[choice1]]):
-            citys[str(seq2)] = value2
-            print(seq2, ':', value2)
-        choice2 = input('\t\t请输入你想查询的市区: ')
-        if choice2 in citys.keys():
-            for seq3,value3 in enumerate(china[provinces[choice1]][citys[choice2]]):
-                print (seq3,':',value3)
-            choice3 = input('\t\t最后一层了，按b返回上层，或者按q键退出:')
-            if choice3 == 'b':
-                continue
-            elif choice3 == 'q':
+    while True:
+        if choice1 in provinces.keys():
+            for seq2,value2 in enumerate(china[provinces[choice1]]):
+                citys[str(seq2)] = value2
+                print(seq2, ':', value2)
+            choice2 = input('\t\t请输入你想查询的市区: ')
+            if choice2 in citys.keys():
+                for seq3,value3 in enumerate(china[provinces[choice1]][citys[choice2]]):
+                    print (seq3,':',value3)
+                choice3 = input('\t\t最后一层了，按b返回上层，或者按q键退出:')
+                if choice3 == 'b':
+                    continue
+                elif choice3 == 'q':
+                    sys.exit()
+            elif choice2 == 'b':
+                break
+            elif choice2 == 'q':
                 sys.exit()
-        if choice2 == 'b':
-            continue
-        elif choice2 == 'q':
+        elif choice1 == 'q':
             sys.exit()
-    if choice1 == 'b':
-        continue
-    else:
-        break
+        else:
+            print ('没查询到你输入的省份编号，请重新输入: ')
+            break
+
 
 
 

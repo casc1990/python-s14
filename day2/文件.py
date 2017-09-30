@@ -3,7 +3,7 @@
 #Author:pengbo
 
 #r  只读模式（默认模式）
-#w  写模式（不能读）
+#w  写模式（不能写）
 #a  追加  （从结尾开始写, 如果文件不存在，会新建）
 #r+  读+追加（读写模式，写的内容会追加到行尾）
 #w+  写读    （覆盖原文件，写的内容会追加到行尾） ---基本用不到
@@ -96,8 +96,8 @@ print (f2.closed)    #文件是否关闭
 f.write('hello 1\n')
 f.flush()    #立即刷新到硬盘（默认数据不会立即写硬盘的）
 print (f2.isatty())  #是否是终端文件
-print (f2.writable())   #文件是否可读
-print (f2.readable())    #文件是否可写
+print (f2.writable())   #文件是否可写
+print (f2.readable())    #文件是否可读
 print (f2.name)      #显示文件名
 print (f2.seekable())   #文件指针是否可移动的（终端文件就不能seek操作）
 f5 = open('yesterday2','r+',encoding='utf-8')

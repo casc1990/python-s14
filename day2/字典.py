@@ -9,7 +9,8 @@ info = {
     'stu004':'alex'
 }                  #新建字典（可以分行写）
 info2 = {'stu001':'zhangsan','stu002':'lisi','stu003':'wangwu','stu004':'alex'}
-info3={'www':'ddd','name':'aa','age':22,'name':'bb','name':'cc'}  #如果字典中key重复，以最后那个key为准，遍历时key是唯一的
+#如果字典中key重复，以最后那个key为准，遍历时key是唯一的
+info3={'www':'ddd','name':'aa','age':22,'name':'bb','name':'cc'}
 print (len(info3))  #len方法只会统计不重复key的数量
 print (info3)
 print (info)
@@ -23,11 +24,13 @@ print (info['stu003'])   #查询（查到直接返回，没查到，报错）
 print (info.get('stu003'))  #查询。（查到直接返回，没查到，返回None）
 #print (info.clear())   #清空字典
 dict_list = {1:'a',2:'b',3:['hello','world']}
-dict_list2 = dict_list.copy()   #浅copy （只copy一层，嵌套的数据修改会影响copy的结果。深copy请导入copy模块）
+#浅copy （只copy一层，嵌套的数据修改会影响copy的结果。深copy请导入copy模块）
+dict_list2 = dict_list.copy()
 dict_list[3][1] = 'xiaoming'
 print (dict_list2,dict_list)
 lst = ['a','b','c']
-dict_list3 = dict.fromkeys(lst,'hello')  #用于初始化一个新字典，以序列seq中元素做字典的键，value为字典所有键对应的初始值。
+#用于初始化一个新字典，以序列seq中元素做字典的键，value为字典所有键对应的初始值。
+dict_list3 = dict.fromkeys(lst,'hello')
 dict_list4 = dict.fromkeys(range(3),'hello') #输入为：{0: 'hello', 1: 'hello', 2: 'hello'}
 dict_list5 = dict.fromkeys(range(3)) #输出为：{0: None, 1: None, 2: None}
 dict_lst = dict.fromkeys([6,7,8],[1,{'name':'hehe'},444])  #value也可以为序列

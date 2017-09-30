@@ -6,7 +6,6 @@ import sys,os
 #new = sys.argv[2]
 print (len(sys.argv))   #获取命令行参数个数
 print (sys.argv[0])    #打印脚本名
-#if len(sys.argv) == 1 or len(sys.argv) == 2:   #因为是在cmd下执行，(python file_sed.py xx xx),脚本名也占了一个参数
 if len(sys.argv) != 3:        #所以参数个数从1开始算（不等于3都不对）
     print ('''请按如下格式替换内容：
          {0} 替换谁 替换成什么'''.format(sys.argv[0])) #参数不够给出提示（sys.argv[0]打印脚本名）
