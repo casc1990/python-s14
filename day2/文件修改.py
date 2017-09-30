@@ -13,3 +13,4 @@ f_new.close()
 f2 = open('abc.txt','w',encoding='utf-8')
 f2.write('this is a test file')
 f2.close()
+
