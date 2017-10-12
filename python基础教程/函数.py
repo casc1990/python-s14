@@ -18,6 +18,11 @@ b = test() #this is printed
 print (b)  #None
 #return语句后面的不会被执行,return默认返回None
 
+#关键字参数和默认值
+def hello(greeting,name):
+    print ('%s.%s' %(greeting,name))
+hello('hello','world')
+
 
 
 
