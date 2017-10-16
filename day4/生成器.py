@@ -74,12 +74,3 @@ while True:  #生成器对象使用循环是拿不到返回值的，无效循环
     except StopIteration as e:  #是这种类型的报错
         print('Generator return value:', e.value)   #打印返回值
         break
-
-
-
-
-
-
-
-
-

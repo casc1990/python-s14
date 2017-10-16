@@ -38,7 +38,7 @@ print (isinstance((x for x in range(10)),Iterator))  #True 生成器(列表和�
 print (isinstance([],Iterator))  #False
 print (isinstance({},Iterator))    #False
 print (isinstance('abc',Iterator))  #False
-#生成器都是Iterator对象，但list、dict、str虽然是Iterable(可迭代的)，却不是Iterator(迭代器)。
+#生成器都是可迭代对象，但list、dict、str虽然是Iterable(可迭代的)，却不是Iterator(迭代器)。
 
 
 #把list、dict、str等Iterable变成Iterator可以使用iter()函数：
