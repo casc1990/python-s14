@@ -32,7 +32,7 @@ def test():
     print ('in the test')
 bar()  #这样可以执行（因为python是解释性语言，从上往下执行，先将bar的函数体存入内存,接着解释 \
                     #test函数，所有调用bar函数时，bar函数里的test是可以执行的）
-#etup_2
+#setup_2
 def bar():  #相当于定义了“变量”bar，函数体为变量值
     print('in the bar')
     test()

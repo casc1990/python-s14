@@ -3,9 +3,8 @@
 import time
 #高阶函数实现装饰器
 def timer(func):
-    start_time = time.time()
-    stop_time = time.time()
-    print ('the func run %s' %(stop_time-start_time))
+    print ('添加功能一')
+    print ('添加功能二')
     return func
 
 def test1():
