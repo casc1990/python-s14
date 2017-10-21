@@ -15,5 +15,3 @@ sys.path.append(root_absdir)
 print (sys.path)
 from core import main   #导入core目录里的main文件（因为把项目的根目录加入到环境变量中了，所有可以导入）
 main.login()      #执行main文件里的login函数
-
-

@@ -25,7 +25,7 @@ print (a1.get('key1'))  #可以正常输出结果
 dic2 = {'key1':'value1','key2':'value2'}
 #json.dumps() 序列化
 dict_to_str = json.dumps(dic2)  #将dict序列化成字符串（"{'key2': 'value2', 'key1': 'value1'}"）
-#json.dumps() 序列化到文件
+#json.dump() 序列化到文件
 with open('test.txt','w') as f:
     dict_to_json_file = json.dump(dic2,f)  #json.dump序列化到文件
 print (dict_to_str,type(dict_to_str))
