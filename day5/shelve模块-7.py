@@ -28,7 +28,7 @@ e.close()  #关闭文件
 
 
 '''
-（1）以上代码将所有内容都放到函数中会让程序更加结构化。
+（1）以下代码将所有内容都放到函数中会让程序更加结构化。
 （2）主程序放到main函数中，只有在if __name__ == '__main__'条件成立的时候才被调用。这意味着可以在其他程序中将这个程序作为模块导入，然后调用main()函数。
 （3）在main函数中打开数据库，然后将其作为参数传给另外需要它的函数。在大多数情况下最好避免使用全局变量。
 （4）对读取的内容调用strip和lower函数以生成了一个修改后的版本。如果总是对用户的输入使用strip和lower函数，那么就可以让用户随意输入大小写字母和添加空格
@@ -43,7 +43,7 @@ def store_person(db):
     db[user_id] = person  #完成键值对应关系，保存到数据库(就是将用户输入的用户信息保存到user_id这个key里)
 def lookup_person(db):
     user_id = input('Enter ID numbers: ')  # 获取键
-    values = input('What would you like to know ?(Enter name,age,phone)')    # 获取子字典的键
+    values = input('What would you like to know ?(Enter name,age,phone)'.strip())    # 获取子字典的键
     print (values.capitalize() + ":",db[user_id][values])
 def print_help():
     print('The available commands are:')

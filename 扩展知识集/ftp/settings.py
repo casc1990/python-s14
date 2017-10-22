@@ -16,9 +16,9 @@ max_per_ip = 10
 #被动端口范围，注意被动端口数量要比最大IP数多，否则可能出现无法连接的情况
 passive_ports = (2000, 2200)
 #是否开启匿名访问 on|off
-enable_anonymous = 'on'
+enable_anonymous = 'off'
 #匿名用户目录
-anonymous_path = '/home/huangxm'
+anonymous_path = 'H:\home'
 #是否开启日志 on|off
 enable_logging = 'off'
 #日志文件

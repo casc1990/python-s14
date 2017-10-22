@@ -25,7 +25,3 @@ data={'host': {'ip01': {'two': '192.168.1.254', 'one': '192.168.1.2'}, 'ip00': '
 f=open('test2.yaml','w')
 yaml.dump(data,f)
 f.close()
-
-
-
-
