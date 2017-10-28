@@ -9,11 +9,11 @@ class Dog(object):
     @property   #属性方法
     def eat(self):
         print ('%s is eating %s....' %(self.name,self.food))
-    @eat.setter  #修改属性变量函数
+    @eat.setter  #属性方法赋值
     def eat(self,foo):
         print ('set to food' ,foo)
         self.food = foo
-    @eat.deleter  #删除属性变量函数
+    @eat.deleter  #属性方法删除（del XX）
     def eat(self):
         del self.food
         print ('删完了')

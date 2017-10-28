@@ -43,8 +43,6 @@ print(m1.friends[0].name) #陈四炮 查询列表中实例对象的name属性（
 
 
 #####例子2 #######
-#!/usr/bin/env Python
-# coding=utf-8
 class K1(object):
     def foo(self):
         print ("K1-foo")

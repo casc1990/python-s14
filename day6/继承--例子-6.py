@@ -25,7 +25,7 @@ class SchoolMenber(object):  #所有人员类
 
 class Teacher(SchoolMenber): #老师继承SchoolMenber并添加新的属性
     def __init__(self,name,age,sex,salary,course):
-        super(Teacher,self).__init__(name,age,sex)
+        super(Teacher,self).__init__(name,age,sex) #执行父类的__init__方法，导入self.nme=name等等
         self.salary = salary  #添加实例属性
         self.course = course
     def tell(self):  #重写tell方法
@@ -41,8 +41,8 @@ class Teacher(SchoolMenber): #老师继承SchoolMenber并添加新的属性
         print("%s is teaching course [%s]" % (self.name, self.course))
 
 class Students(SchoolMenber): #学生继承SchoolMenber并添加新的属性
-    def __init__(self,name,age,sex,stu_id,grade):
-        super(Students, self).__init__(name, age, sex)
+    def __init__(self,name,age,sex,stu_id,grade): #重写__init__方法
+        super(Students, self).__init__(name, age, sex) #导入init属性
         self.stu_id = stu_id
         self.grade = grade
     def tell(self): #重写tell方法

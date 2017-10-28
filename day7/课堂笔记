@@ -8,14 +8,17 @@
         @property 表示下面的方法是属性方法
         @'方法名'.setter  修改属性方法函数（修改的只是函数里定义的变量，修改时才会执行这个方法）
         @'方法名'.deleter 删除属性方法函数（删除的只是函数里定义的变量，删除属性是执行这个方法）
-        调用属性方法就相当是调用一个类属性，不需要加()；@'方法名'.setter、@'方法名'.deleter必须出现在@property定义的方法后面
+        property(getsize,setsize): property函数可以把类的方法变成属性，并根据对象的相应操作，执行不同的属性（方法）
+        调用属性方法就相当是调用一个类属性，不需要加()；
+        @'方法名'.setter、@'方法名'.deleter必须出现在@property定义的方法后面
+
 
 特殊方法：
         __doc__ :打印类的描述信息
         __module__：打印当前对象来自于那个模块
         __class__： 打印当前对象来自于那个模块的那个类
         __init__： 构造方法，通过类创建对象时，自动触发执行
-        __del__: 析构方法，当对象在内存中被释放时，自动触发执行。
+        __del__: 析构方法，当对象在内存中被释放时，自动触发执行（没有参数）。
         __call__: 此函数定义在类里面。对象或者类后面加括号，触发执行。（对象或者类的二次调用）
         __dict__： 查询类和实例所有的属性和方法（类和实例的属性和方法都存储在__dict__字典里）
         __str__： 如果一个类中定义了__str__方法，那么在打印对象时，默认输出该方法的返回值。
@@ -24,6 +27,35 @@
         __delitem__：用于索引操作，如字典。表示删除数据
         __new__: 创建实例的方法。（所有类的实例化都会通过__new__方法创建实例，之后才是__init__实例化方法）
 
+反射：
+        hasattr(obj,name_str): 判断一个对象(obj)里是否有对应的字符串(name_str)名称的方法或属性
+        getattr(obj,name_str): 根据字符串(name_str)去获取对象(obj)里对应的方法或者属性
+        setattr(obj,name_str,func): 向对象(obj)中添加一个字符串(name_str)方法，方法对应的函数或者属性是func
+        delattr(obj,name_str): 删除对象(obj)里对应的字符串(name_str)名称的方法或属性
+        __setattr__(self,name,value) ：如果要给属性或者方法(name)赋值，就调用这个方法
+        __getattr__(self,name) ：如果属性或者方法(name)不存在，但是被访问，此方法被调用。
+        __getattribute__(self,name) ：当属性或者方法(name)被访问时自动被调用（注意：这个仅能用于新式类）,无论 name 是否存在，都要被调用。
+        __delattr__(self,name) ：如果要删除 name，这个方法就被调用。
+
+
+异常处理：
+        try:
+            do something
+        except:
+            do something
+        else:
+            do something
+        finally   #处理善后工作（try和except都不执行，finally也会执行）
+            do something
+
+        except Exception as e: 捕捉异常，并把异常保存给变量e
+
+断言：
+        assert 1==1   #判断1肯定等于1，如果不是就抛出错误
+
 总结：
-    一切皆对象（类也是对象，类是type生成的）。
+        类是由type生成
+        Foo = type('Foo',(object,),{'__init__':__init__,
+                                    'talking':talk})   #object,表示是新式类，字典里是类对应的方法
+        __new__方法是用来创建实例的，__new__方法是首先被执行的，然后__new__调用__init__进行对象的实例化
 
