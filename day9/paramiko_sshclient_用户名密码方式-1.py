@@ -4,6 +4,7 @@
 __date__ = '2017/5/31 14:05'
 import paramiko
 
+paramiko.util.log_to_file('paramiko.log')  #记录日志
 # 创建SSH对象
 ssh = paramiko.SSHClient()
 # 允许连接不在know_hosts文件中的主机

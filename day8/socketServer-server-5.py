@@ -15,14 +15,14 @@ class MyTCPHandler(socketserver.BaseRequestHandler): #第一步：自己定义�
         '''
         while True:
             try:
-                self.data = self.request.recv(1024).strip()
-                print ('request from: ' ,self.client_address[0])
-                print ('recv data:',self.data)
+                self.data = self.request.recv(1024).strip() #self.request是和客户端连接的套接字，可直接使用
+                print ('request from: ' ,self.client_address[0])  #打印客户端的ip地址
+                print ('recv data:',self.data)  #打印接收到的数据
                 #if not self.data:
                 #    print ('客户端断开了..')
                 #    break
                 #print ('python3中socketServer断开会抛出异常，我们不用自己判断了，捕获异常就可以了')
-                self.request.send(self.data.upper())
+                self.request.send(self.data.upper()) #发送数据
             except ConnectionResetError as e:
                 print ('error:',e)
                 print ('client %s:%s close connection....' %(self.client_address[0],self.client_address[1]))
@@ -35,3 +35,4 @@ if __name__ == "__main__":
     server = socketserver.ThreadingTCPServer((HOST,PORT),MyTCPHandler) #第二步：使用多线程socketServer（实例化socketServer）
     #循环的处理客户端请求
     server.serve_forever() # 第三步（循环的处理客户端请求）
+    server.server_close()

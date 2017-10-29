@@ -2,13 +2,15 @@
 socket.send时如果发送多条数据，可能会出去粘包现象，因为发送多条数据时，缓存区有时会缓存数据，一次发送多条数据
         可以使用os.time(0.5)强制超时
 socket.recv()是阻塞的，客户端不发送数据，就一直阻塞在哪儿
-socket的客户端如果断开，会发送空给服务端，所有判断客户端发送过来的为空，就可以说明客户端已经断开
+socket的客户端如果断开，会发送空给服务端，所以判断客户端发送过来的为空，就可以说明客户端已经断开
 
 socketServer: 可以处理多个客户端连接，实现socket并发的一种服务。socketServer是基于socket的一种封装
 socketServer分类：
     1.处理单个tcp：
         class socketserver.TCPServer(server_address, RequestHandlerClass, bind_and_activate=True)
-    2.处理udp：
+              server_address：服务端ip+端口；RequestHandlerClass：请求处理类
+              例子：server = socketserver.ThreadingTCPServer((HOST,PORT),MyTCPHandler)
+    2.处理单个udp：
         class socketserver.UDPServer(server_address, RequestHandlerClass, bind_and_activate=True)
     3.其他：
         class socketserver.UnixStreamServer(server_address, RequestHandlerClass, bind_and_activate=True) --本机进程tcp通信

@@ -24,7 +24,7 @@ while True:
             else:size = file_total_size -received_size #收取最后一次（因为最后一次又可能不到1024）
             data = client.recv(size) #接收指定大小的数据
             m.update(data) #md5数据
-            #print ('len()获取的字符串长度其实就是等于字符串的大小')
+            print ('len()获取的字符串长度其实就是等于字符串的大小')
             received_size += len(data) #累加接收到的文件大小。(len获取的字符串总和等于文件总大小)
             f.write(data)
             #print (file_total_size,received_size)

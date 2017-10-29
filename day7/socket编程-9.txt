@@ -23,7 +23,7 @@ socket参数
     sk.accept() #等待数据发送过来（如果有请求过来，该方法返回2个值，第一个是连接过来的客户端实例，第二个是连接客户端的ip和端口）
     conn,addr = sk.accept() #接受accept()的返回值
     conn.recv(bufsize[,flag]) #接受套接字的数据。数据以字符串形式返回，
-        conn.recv(1024)接收1024bit的数量（注意：即使你写的接受的值多大conn.recv(1024000)，每个系统接受的数据量都是有限的）
+    conn.recv(1024)接收1024bit的数量（注意：即使你写的接受的值多大conn.recv(1024000)，每个系统接受的数据量都是有限的）
     conn.send(b'hello world') #将string中的数据发送到连接的套接字。可能未将指定内容全部发送（注意：不能发送空，每次发送的数据量也是有限的，根据系统而定）。
     conn.sendall(string[,flag])  #将string中的数据发送到连接的套接字，但在返回之前会尝试发送所有数据。成功返回None，失败则抛出异常。
     sk.close() #关闭套接字

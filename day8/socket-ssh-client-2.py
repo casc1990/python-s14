@@ -11,7 +11,7 @@ while True:
     client.send(cmd.encode('utf-8'))  #发送命令
     cmd_res_size = client.recv(1024)  #接受命令的长度
     print ('命令的总大小为:',cmd_res_size)
-    client.send('开始发送吧.'.encode('utf-8'))  #回应确认包
+    client.send('命令结果的长度我已经收到了,开始发送命令结果吧.'.encode('utf-8'))  #回应确认包
     received_size = 0
     received_data = b''
     while received_size < int(cmd_res_size.decode()): #判断接收的数据长度，一直循环接收，直到接收完
