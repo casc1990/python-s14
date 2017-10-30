@@ -20,8 +20,10 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(hostname=blip,username=bluser,password=blpasswd,port=prot)
 
+#stdin,stdout,stderr = ssh.exec_command('df -h')
+#print (stdout.read())
+#print (stderr.read())
 channel = ssh.invoke_shell() #创建回话，开启命令调用
 channel.settimeout(10)  #会话命令执行的超时时间
 
-channel
 
