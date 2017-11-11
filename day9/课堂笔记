@@ -12,5 +12,25 @@
     5.线程可以对同一进程的线程进行相当大的控制;进程只能对子进程执行控制。
     6.对主线程的更改(取消、优先级更改等)可能会影响该进程的其他线程的行为;对父进程的更改不会影响子进程。
 
+锁机制：
+    线程锁(互斥锁Mutex)：
+        lock = threading.Lock() 生成锁
+        lock.acquire() 修改数据前加锁
+        lock.release() #修改后释放
+    递归锁(RLock)：程序中如果出现多个锁的时候，一定要用递归锁
+        lock = threading.RLock() 生成递归锁
+        lock.acquire() 修改数据前加锁
+        lock.release() #修改后释放
+    信号量(Semaphore)：指定同时可以有几个线程同时运行
+        lock = threading.BoundedSemaphore(5) 最多允许5个线程同时运行
+        lock.acquire() 修改数据前加锁
+        lock.release() 修改后释放
+事件(Events)：相当设置全局环境变量（标志位）
+    event = threading.Event() 生成event对象
+    event.set()  设置标志位
+    event.clear() 清除标志位
+    event.wait() 等着标志位被设定（标志位被设定，什么都不做，如果未设定，等待着被设定）
+    event.is_set() 判断标志位是否被设置
+
 
 
