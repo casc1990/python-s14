@@ -32,5 +32,18 @@
     event.wait() 等着标志位被设定（标志位被设定，什么都不做，如果未设定，等待着被设定）
     event.is_set() 判断标志位是否被设置
 
+队列(queue)：高效，解耦
+    queue.Queue(maxsize=0) #先入先出  --默认
+    queue.LifoQueue(maxsize=0) #后入先出
+    queue.PriorityQueue(maxsize=0) #存储数据时可设置优先级的队列
+    Queue.qsize()  #查看队列大小
+    Queue.put('1')  #向队列存放数据
+    Queue.put('2', block=True, timeout=None) #是否阻塞，超时时间
+    Queue.get(block=True, timeout=None)  #取数据(取数据不能指定取什么数据，按队列的规则取)
+    Queue.get_nowait()  #取数据不等待，没有了就抛出异常
+    Queue.put_nowait() #同Queue.get_nowait()类似
+
+
+
 
 
